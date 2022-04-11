@@ -10,6 +10,7 @@ local CommandList = Instance.new("ScrollingFrame")
 local UIListLayout = Instance.new("UIListLayout")
 local Command = Instance.new("TextLabel")
 local UIPadding_3 = Instance.new("UIPadding")
+local plr = game:GetService("Players").LocalPlayer
 
 MainGui.Name = ""
 MainGui.Parent = game:GetService("CoreGui")
@@ -99,6 +100,11 @@ Command.TextScaled = true
 Command.TextSize = 14.000
 Command.TextWrapped = true
 
+local destroyGui = Command:Clone()
+destroyGui.Name = "!destroygui"
+destroyGui.Text = "!destroygui - Destroy's the gui"
+destroyGui.Parent = CommandList
+
 UIPadding_3.Parent = Command
 UIPadding_3.PaddingBottom = UDim.new(0, 5)
 UIPadding_3.PaddingLeft = UDim.new(0, 5)
@@ -118,6 +124,15 @@ CommandList.ChildAdded:Connect(function()
 				lib.commands[#lib.commands+1] = cmd
 			end
 		end
+	end
+end)
+
+CommandList.ChildRemoved:Connect(function(obj)
+	if obj == destroyGui then
+		local destroyGui = Command:Clone()
+		destroyGui.Name = "!destroygui"
+		destroyGui.Text = "!destroygui - Destroy's the gui"
+		destroyGui.Parent = CommandList
 	end
 end)
 
@@ -142,7 +157,7 @@ end
 lib.createCommand = function(name, description)
 	local success, response = pcall(function()
 		
-		if not string.match(tostring(name), "^%s*$") then
+		if not string.match(tostring(name), "^%s*$") and tostring(name) ~= "destroygui" then
 		
 			local cmdName = (tostring(lib.currentPrefix)..tostring(name).." - "..tostring(description))
 			local splitCmdName = string.split(cmdName, " - ") -- [1] = cmd, [2] = desc 
@@ -151,8 +166,6 @@ lib.createCommand = function(name, description)
 			newCommand.Name = splitCmdName[1]:gsub(" ", "")
 			newCommand.Text = cmdName
 			newCommand.Parent = CommandList
-			
-			return newCommand
 			
 		end
 
@@ -241,5 +254,19 @@ function UpdateResults()
 end
 
 SearchBar.Changed:Connect(UpdateResults)
+
+plr.Chatted:Connect(function(msg)
+	local cmds = lib.commands
+	local prefix = lib.currentPrefix
+	for _, cmd in pairs(cmds) do
+		cmd = cmd.Name
+		local cleanMsg = msg:gsub(' ', '')
+		if cleanMsg == cmd then
+			if cmd == '!destroygui' then
+				MainGui:Destroy()
+			end
+		end
+	end
+end)
 
 return lib
