@@ -163,7 +163,7 @@ end
 local UserInputService = game:GetService("UserInputService")
 local runService = (game:GetService("RunService"));
 
-local gui = TopBar
+local gui = MainFrame
 
 local dragging
 local dragInput
@@ -195,7 +195,7 @@ gui.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		dragging = true
 		dragStart = input.Position
-		startPos = gui.Position
+		startPos = TopBar.Position --gui.Position
 		lastMousePos = UserInputService:GetMouseLocation()
 
 		input.Changed:Connect(function()
