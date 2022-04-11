@@ -109,6 +109,18 @@ local lib = {}
 lib.currentPrefix = ":"
 lib.mainGui = MainGui
 
+lib.commands = {}
+
+CommandList.ChildAdded:Connect(function()
+	for _, cmd in pairs(CommandList:GetChildren()) do
+		if cmd:IsA("TextLabel") then
+			if not table.find(lib.commands, cmd) then
+				lib.commands[#lib.commands+1] = cmd
+			end
+		end
+	end
+end)
+
 lib.setPrefix = function(prefix)
 	local success, response = pcall(function()
 		lib.currentPrefix = tostring(prefix)
@@ -139,27 +151,6 @@ lib.createCommand = function(name, description)
 	end)
 	if not success then
 		error("lib.createCommand failed: "..response)
-	end
-end
-
-lib.getCommands = function()
-	local success, response = pcall(function()
-		
-		local children = {}
-		
-		for _, cmd in pairs(CommandList:GetChildren()) do
-			if cmd:IsA("TextLabel") then
-				children[#children+1] = cmd
-			end
-		end
-		
-		print(children)
-		
-		return children
-		
-	end)
-	if not success then
-		error("lib.returnCommands failed: "..response)
 	end
 end
 
