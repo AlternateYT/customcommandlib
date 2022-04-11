@@ -100,16 +100,16 @@ Command.TextScaled = true
 Command.TextSize = 14.000
 Command.TextWrapped = true
 
-local destroyGui = Command:Clone()
-destroyGui.Name = "!destroygui"
-destroyGui.Text = "!destroygui - Destroy's the gui"
-destroyGui.Parent = CommandList
-
 UIPadding_3.Parent = Command
 UIPadding_3.PaddingBottom = UDim.new(0, 5)
 UIPadding_3.PaddingLeft = UDim.new(0, 5)
 UIPadding_3.PaddingRight = UDim.new(0, 5)
 UIPadding_3.PaddingTop = UDim.new(0, 5)
+
+local destroyGui = Command:Clone()
+destroyGui.Name = "!destroygui"
+destroyGui.Text = "!destroygui - Destroy's the gui"
+destroyGui.Parent = CommandList
 
 local lib = {}
 lib.currentPrefix = ":"
