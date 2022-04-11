@@ -222,4 +222,24 @@ UserInputService.InputBegan:Connect(function(input, typing)
 	end
 end)
 
+function UpdateResults()
+	local search = string.lower(SearchBar.Text)
+	for i, v in	 pairs(CommandList:GetChildren()) do
+		if v:IsA("TextLabel") then
+			if not string.match(tostring(SearchBar.Text), "^%s*$") and not string.match(tostring(v.Text), "^%s*$") then
+				local item = string.lower(v.Text)
+				if string.find(item, search) then
+					v.Visible = true
+				else
+					v.Visible = false
+				end
+			else
+				v.Visible = true
+			end
+		end
+	end
+end
+
+SearchBar.Changed:Connect(UpdateResults)
+
 return lib
