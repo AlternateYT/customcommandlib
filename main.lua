@@ -124,7 +124,6 @@ end)
 lib.setPrefix = function(prefix)
 	local success, response = pcall(function()
 		lib.currentPrefix = tostring(prefix)
-		return tostring(lib.currentPrefix)
 	end)
 	if not success then
 		error("lib.setPrefix failed: "..response)
