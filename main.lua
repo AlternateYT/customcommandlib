@@ -121,6 +121,15 @@ CommandList.ChildAdded:Connect(function()
 	end
 end)
 
+lib.setTitle = function(titleText)
+	local success, response = pcall(function()
+		Title.Text = tostring(titleText)
+	end)
+	if not success then
+		print("lib.setTitle failed: "..response)
+	end
+end
+
 lib.setPrefix = function(prefix)
 	local success, response = pcall(function()
 		lib.currentPrefix = tostring(prefix)
@@ -188,7 +197,7 @@ gui.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		dragging = true
 		dragStart = input.Position
-		startPos = gui.Position
+		startPos = TopBar.Position --gui.Position
 		lastMousePos = UserInputService:GetMouseLocation()
 
 		input.Changed:Connect(function()
