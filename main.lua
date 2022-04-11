@@ -146,7 +146,7 @@ lib.getCommands = function()
 		
 		local children = {}
 		
-		for _, cmd in pairs(CommandList) do
+		for _, cmd in pairs(CommandList:GetChildren()) do
 			if cmd:IsA("TextLabel") then
 				children[#children+1] = cmd
 			end
