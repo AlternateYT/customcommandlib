@@ -107,6 +107,7 @@ UIPadding_3.PaddingTop = UDim.new(0, 5)
 
 local lib = {}
 lib.currentPrefix = ":"
+lib.mainGui = MainGui
 
 lib.setPrefix = function(prefix)
 	local success, response = pcall(function()
@@ -151,6 +152,8 @@ lib.getCommands = function()
 				children[#children+1] = cmd
 			end
 		end
+		
+		print(children)
 		
 		return children
 		
