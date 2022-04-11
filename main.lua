@@ -210,7 +210,7 @@ gui.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		dragging = true
 		dragStart = input.Position
-		startPos = TopBar.Position --gui.Position
+		startPos = gui.Position
 		lastMousePos = UserInputService:GetMouseLocation()
 
 		input.Changed:Connect(function()
